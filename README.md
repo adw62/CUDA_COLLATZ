@@ -12,3 +12,5 @@ nvcc -shared collatz.o collatz_wrap.o -o _cuda_collatz.so
 # To run
 
 python run.py
+
+![coll](https://user-images.githubusercontent.com/38112687/160183594-851f08b5-2f34-4254-89cf-a067a14a25ec.png)
