@@ -15,22 +15,27 @@ nvcc -shared chaos.o chaos_wrap.o -o _chaos.so
 from chaos import collatz, henon, tinkerbell, logistics_map, bogdanov
 import numpy as np
 
-nx = 100
+#uses a lot of memory
+nx = 1024*100000
 ny = nx
-steps = 40
+steps = 300
 a = 0.9
 b = -0.6013
 c = 2.0
 d = 0.50
 
-mat = [[i-nx/2, j-ny/2] for i in range(nx) for j in range(ny)]
-x = [x[0]/(nx) for x in mat]
-y = [x[1]/(ny) for x in mat]
-x = np.array(x, 'd')
-y = np.array(y, 'd')
+x = np.arange(nx) - nx/2
+y = np.arange(ny) - ny/2
+
+x = x / nx
+y = y / ny
+
+x = x.astype('d')
+y = y.astype('d')
 tinkerbell(x, y, a, b, c, d, steps)
 ```
-![tb](https://user-images.githubusercontent.com/38112687/160251441-cdd66a76-5777-4fa9-8b7c-24d17d7e94c7.png)
+![download1](https://github.com/adw62/cuda_chaos/assets/38112687/1765b69d-8ef6-4406-ad8d-2ff9e414b247)
+
 
 See Jupyter notebook for examples of other systems
 
