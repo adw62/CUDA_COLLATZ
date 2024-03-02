@@ -37,11 +37,18 @@ tinkerbell(x, y, a, b, c, d, steps)
 
 plt.figure(figsize=(16, 9), dpi=600)
 plt.scatter(x, y, s=0.1, linewidths=0, alpha=0.5)
+text = f"""Tinkerbell
+a = {a}, b = {b}, c = {c}, d = {d}"""
+
+plt.figtext(0.05,0.00, text, fontsize=8, va="top", ha="left")
+
 plt.xlabel('x')
 plt.ylabel('y')
 plt.show()
 ```
-![download1](https://github.com/adw62/cuda_chaos/assets/38112687/1765b69d-8ef6-4406-ad8d-2ff9e414b247)
+![t1](https://github.com/adw62/cuda_chaos/assets/38112687/70815f39-493e-4132-953b-2c743a28831a)
+![t3](https://github.com/adw62/cuda_chaos/assets/38112687/159ae8d4-586c-4307-b903-afd3c3b7eddc)
+
 
 
 See Jupyter notebook for examples of other systems
