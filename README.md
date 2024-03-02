@@ -14,6 +14,7 @@ nvcc -shared chaos.o chaos_wrap.o -o _chaos.so
 ```python
 from chaos import collatz, henon, tinkerbell, logistics_map, bogdanov
 import numpy as np
+import matplotlib.pyplot as plt
 
 #uses a lot of memory
 nx = 1024*100000
@@ -33,6 +34,12 @@ y = y / ny
 x = x.astype('d')
 y = y.astype('d')
 tinkerbell(x, y, a, b, c, d, steps)
+
+plt.figure(figsize=(16, 9), dpi=600)
+plt.scatter(x, y, s=0.1, linewidths=0, alpha=0.5)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
 ```
 ![download1](https://github.com/adw62/cuda_chaos/assets/38112687/1765b69d-8ef6-4406-ad8d-2ff9e414b247)
 
