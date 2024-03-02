@@ -5,7 +5,8 @@ CUDA code to iterate a range of dynamic systems which exhibit chaotic behaviour 
 
 swig -python -c++ chaos.i
 
-#Change python and numpy locations as required
+#Change python and numpy locations as required.
+
 nvcc --compiler-options '-fPIC' -c chaos.cu chaos_wrap.cxx -I/home/a/miniconda3/include/python3.9/ -I/home/a/miniconda3/lib/python3.9/site-packages/numpy/core/include
 
 nvcc -shared chaos.o chaos_wrap.o -o _chaos.so
