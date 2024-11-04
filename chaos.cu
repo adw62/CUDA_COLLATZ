@@ -22,17 +22,39 @@ __global__ void henon_kernel(double *xd_points, double *yd_points, double a, dou
 __global__ void tinkerbell_kernel(double *xd_points, double *yd_points, double a, double b, double c, double d, int steps) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     
+    // Define bounding box parameters
+    double xmin = -200.0;
+    double xmax = 200.0;
+    double ymin = -200.0;
+    double ymax = 200.0;
+
     // Perform Tinkerbell map computation
     double x = xd_points[idx];
     double y = yd_points[idx];
     for (int i = 0; i < steps; ++i) {
-        double x_new = x * x - y * y + a * x + b * y;
+        double x_new = x * x - y * y  + a * x + b * y;
         double y_new = 2 * x * y + c * x + d * y;
+        
+        // Check if values exceed threshold
+        if (fabs(x_new) > 1000000000 || fabs(y_new) > 1000000000) {
+            // Set output values to 0 and return
+            xd_points[idx] = 0.0;
+            yd_points[idx] = 0.0;
+            return;
+        }
+
         x = x_new;
         y = y_new;
     }
-    xd_points[idx] = x;
-    yd_points[idx] = y;
+    
+    // Check if final values fall within bounding box
+    if (x < xmin || x > xmax || y < ymin || y > ymax) {
+        xd_points[idx] = 0.0;
+        yd_points[idx] = 0.0;
+    } else {
+        xd_points[idx] = x;
+        yd_points[idx] = y;
+    }
 }
 
 __global__ void bogdanov_kernel(double *xd_points, double *yd_points, double eps, double k, double mew, int steps) {
@@ -194,3 +216,5 @@ void henon(double *x_points, int N, double *y_points, int M, double a, double b,
     cudaFree(xd_points);
     cudaFree(yd_points);
 }
+
+
